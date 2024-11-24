@@ -14,10 +14,11 @@ namespace Manager.Brokers.Storages
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connection =
-                configuration.GetConnectionString("DefaultConnection");
+            string connectionString = this.configuration
+                .GetConnectionString("DefaultConnection");
 
-            optionsBuilder.UseSqlServer(connection);
+            optionsBuilder.UseMySql(connectionString,
+                new MySqlServerVersion(new Version(8, 0, 39)));
         }
         private async ValueTask<T> InsertAsync<T>(T @object)
         {
